@@ -4,9 +4,9 @@ from tkinter import ttk
 # Create custom window
 window = tk.Tk()
 window.title("Julie's hire party")
-window.geometry("800x400") 
+window.geometry("1100x600") 
 window.configure(bg="white")
-
+window.attributes('-fullscreen',True)
 # Add shapes
 entry_box_bg = tk.Label(window,text= "      ", width=23, height=9,fg="red",bg="#213A5C")
 entry_box_bg.place(x=245,y=141)
@@ -18,7 +18,7 @@ label_bg.place(x=50,y=141)
 # Create custom table
 table_frame = tk.Frame()
 table_frame.pack(padx=1,pady=1)
-table_frame.place(x=420,y=100)
+table_frame.place(x=1000,y=200)
 
 
 columns = ("Customer Name", "Receipt Number", "Item Hired", "Number Hired")
@@ -45,14 +45,19 @@ def add_data():
 # Create buttons to add to table
 
 # submit button
-add_button = tk.Button(entry_frame, text="Print Details",font=("Arial",12,"bold"), command=add_data)
-add_button.pack(side=tk.LEFT, padx=10) 
+add_button = tk.Button(text="Print Details",font=("Arial",12,"bold"), command=add_data)
+add_button.pack(padx=10,pady=300)
+add_button.place(x=200,y=100)
 
 btn_append = tk.Button(window,text="Append Details",font=("Arial",12,"bold"))
 btn_append.place(x=190,y=300)
 
+# Button to exit application
+btn_exit = tk.Button(window,text="Exit application",font=("Arial",13),command=exit)
+btn_exit.place(x=1500,y=950)
+
 # Labels
-lb_header = tk.Label(window,text= "Julie's Party",font=('Arial',45,"bold"), width= 11,fg="red",bg="lightgrey")
+lb_header = tk.Label(window,text= "Julie's Party",font=('Arial',45,"bold"), width= 27,fg="red",bg="lightgrey")
 lb_name = tk.Label(window,text= "Customer Name",font=('Arial',11),fg="black",bg="lightgrey")
 lb_receipt = tk.Label(window,text= "Receipt Number",font=('Arial',11),fg="black",bg="lightgrey")
 lb_item = tk.Label(window,text= "Item Hired",font=('Arial',11),fg="black",bg="lightgrey")
