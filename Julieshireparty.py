@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from tkinter import *
+
 # Create custom window
 window = tk.Tk()
 window.title("Julie's hire party")
@@ -14,35 +14,24 @@ entry_box_bg.place(x=245,y=141)
 label_bg = tk.Label(window,text= "      ", width=24, height=9,fg="red",bg="#213A5C")
 label_bg.place(x=50,y=141)
 
-rows = []
-
-for i in range(5):
-
-    cols = []
-
-    for j in range(5):
-
-        e = Entry(relief=GROOVE)
-
-        e.grid(row=i, column=j, sticky=NSEW)
-
-        e.insert(END, '%d.%d' % (i, j))
-
-        cols.append(e)
-
-    rows.append(cols)
 
 # Create custom table
 table_frame = tk.Frame()
-#table_frame.grid(row = 0, column = 0, pady = 2)
+table_frame.pack(padx=1,pady=1)
+table_frame.place(x=420,y=100)
 
 
 columns = ("Customer Name", "Receipt Number", "Item Hired", "Number Hired")
 treeview = ttk.Treeview(table_frame, columns=columns, show="headings")
-#treeview.grid(row = 0, column = 0, pady = 2)
+treeview.pack(padx=1,pady=1)
 
-#entry_frame = ttk.Frame()
-#entry_frame.grid(row = 0, column = 0, pady = 2)
+entry_frame = ttk.Frame()
+entry_frame.pack(padx=1,pady=1)
+
+
+#Headings for table
+for col in columns:
+    treeview.heading(col, text=col)
 
 
 #create function to add data to the table
@@ -56,10 +45,10 @@ def add_data():
 # Create buttons to add to table
 
 # submit button
-btn_submit = tk.Button(window,text="Print Details",font=("Arial",12))
-btn_submit.place(x=320,y=300) 
+add_button = tk.Button(entry_frame, text="Print Details",font=("Arial",12,"bold"), command=add_data)
+add_button.pack(side=tk.LEFT, padx=10) 
 
-btn_append = tk.Button(window,text="Append Details",font=("Arial",12))
+btn_append = tk.Button(window,text="Append Details",font=("Arial",12,"bold"))
 btn_append.place(x=190,y=300)
 
 # Labels
