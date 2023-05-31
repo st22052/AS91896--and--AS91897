@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import *
 from PIL import ImageTk, Image
+import json
 # Create custom window
 window = tk.Tk()
 window.title("Julie's hire party")
@@ -124,6 +125,41 @@ def delete_all():
     for add_data in treeview.get_children():
         treeview.delete(add_data)
         update_row_count()
+
+# function to save data to a file
+def save_data():
+    data = []
+    for item in treeview.get_children():
+        values = treeview.item(item, "values")
+        data.append({
+            "Name": values[0],
+            "Receipt": values[1],
+            "Item Hired": values[2],
+            "Number Hired": values[3]
+        })
+    with open("data.json", "w") as file:
+        json.dump(data, file)
+
+# Bind save_data to the WM_DELETE_WINDOW event
+window.protocol("WM_DELETE_WINDOW", save_data)
+save = tk.Button(window,text="SAVE",font=("Arial",15),command=save_data)
+save.place(x=950,y=780)
+
+# Function to load data from file
+def load_data():
+    try:
+        with open("data.json", "r") as file:
+            data = json.load(file)
+            for item in data:
+                treeview.insert("", "end", values=(item["Name"], item["Receipt"], item["Item Hired"], item["Number Hired"]))
+            update_row_count()
+    except FileNotFoundError:
+        pass
+
+# Call load_data to populate the treeview
+load_data()
+load = tk.Button(window,text="LOAD",font=("Arial",15),command=load_data)
+load.place(x=1100,y=780)
 
 
 # Add Buttons to Edit and Delete the Treeview items
