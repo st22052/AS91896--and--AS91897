@@ -8,11 +8,14 @@ window.geometry("1100x600")
 window.configure(bg="white")
 window.attributes('-fullscreen',True)
 # Add shapes
-entry_box_bg = tk.Label(window,text= "      ", width=30, height=16,fg="red",bg="#213A5C")
+entry_box_bg = tk.Label(window, width=30, height=17,fg="red",bg="#213A5C")
 entry_box_bg.place(x=433,y=190)
 
-label_bg = tk.Label(window,text= "      ", width=30, height=16,fg="red",bg="#213A5C")
+label_bg = tk.Label(window, width=30, height=17,fg="red",bg="#213A5C")
 label_bg.place(x=200,y=190)
+
+button_bg = tk.Label(window, width=64, height=10, bg="#213A5C")
+button_bg.place(x=200,y=465)
 
 
 # Create custom table
@@ -20,6 +23,7 @@ table_frame = tk.Frame()
 table_frame.pack(pady=10)
 table_frame.place(x=700,y=190)
 
+# Adding a scroll bar for table in case user adds more data
 table_scroll = Scrollbar(table_frame)
 table_scroll.pack(side=RIGHT, fill=Y)
 
@@ -32,7 +36,8 @@ entry_frame.pack(pady=10)
 
 
 #Headings for table
-
+for col in columns:
+    treeview.heading(col, text=col)
 
 
 #create function to add data to the table
@@ -42,6 +47,7 @@ def add_data():
         Receipt = int(receipt_num.get())
     except ValueError:
         error.config(text="Please enter a number")
+
 
     Item_Hired = item_hired.get()
     Number_Hired = num_hired.get()
@@ -83,14 +89,17 @@ delete_all.place(x=1100,y=760)
 # submit button
 add_button = tk.Button(text="Print Details",font=("Arial",12,"bold"), command=add_data)
 add_button.pack(padx=10,pady=300)
-add_button.place(x=550,y=450)
+add_button.place(x=535,y=480)
 
 btn_append = tk.Button(window,text="Append Details",font=("Arial",12,"bold"))
-btn_append.place(x=400,y=450)
+btn_append.place(x=400,y=480)
 
 # Button to exit application
 btn_exit = tk.Button(window,text="Exit application",font=("Arial",13),command=exit)
 btn_exit.place(x=1360,y=760)
+
+
+
 
 # Labels
 lb_header = tk.Label(window,text= "Julie's Party",font=('Arial',45,"bold"), width= 23,fg="red",bg="lightgrey")
@@ -103,7 +112,7 @@ lb_header.place(x=0,y=0)
 lb_name.place(x=240,y=200)
 lb_receipt.place(x=240,y=250)
 lb_item.place(x=240,y=300)
-lb_num.place(x=240,y=350)
+lb_num.place(x=225,y=350)
 
 
 # Create entry boxes
