@@ -39,12 +39,6 @@ entry_frame.pack(pady=10)
 for col in columns:
     treeview.heading(col, text=col)
 
-def validate_entry(text):
-    if text.strip():  # Check if the input is not empty after removing leading/trailing whitespace
-        return True
-    else:
-        return False
-
 #create function to add data to the table
 def add_data():
     Name = customer_name.get()
@@ -56,6 +50,18 @@ def add_data():
     Item_Hired = item_hired.get()
     Number_Hired = num_hired.get()
     
+    # Validation checks
+    if not Item_Hired.strip():
+        item_hired_error.config(text="Item Hired cannot be empty")
+        return  # Exit the function if Item_Hired is empty
+
+    if not Number_Hired.isdigit() or int(Number_Hired) < 1 or int(Number_Hired) > 500:
+        num_error.config(text="Items Hired must be a number between 1-500")
+         # Exit the function if Number_Hired is empty
+
+    # Clear any previous error messages
+    item_hired_error.config(text="")
+    num_error.config(text="")
     # Print to terminal
     print("Name: ", Name)
     print("Item hired: ", Item_Hired)
@@ -64,17 +70,16 @@ def add_data():
     print("*************")
 
     treeview.insert("", "end", values=(Name, Receipt, Item_Hired, Number_Hired))
-    
-    if validate_entry(item_hired.get()):
-        print("")
-    else:
-        item_hired_error.config(text="Entry Required")
 
-item_hired_error = Label(window, text='', bg="yellow")
-item_hired_error.place(x=450,y=320)
 
-receipt_error = Label(window, text='', bg="yellow")
-receipt_error.place(x=450,y=270)
+item_hired_error = Label(entry_box_bg, text='', bg="yellow")
+item_hired_error.place(x=10,y=135)
+
+num_error = Label(entry_box_bg, text='', bg="yellow")
+num_error.place(x=10,y=185)
+
+receipt_error = Label(entry_box_bg, text='', bg="yellow")
+receipt_error.place(x=10,y=85)
 
 # Functions and buttons to delete data off of the table
 
@@ -97,18 +102,18 @@ def delete_all():
 # Add Buttons to Edit and Delete the Treeview items
 #edit_btn = ttk.Button(window, text="Edit", width=23, command=edit)
 #edit_btn.place(x=1000,y=440)
-del_btn = ttk.Button(window, text="Delete selected row", width=23, command=delete)
-del_btn.place(x=960,y=760)
-delete_all = ttk.Button(window, text="Delete all", width=23, command=delete_all)
-delete_all.place(x=1100,y=760)
+del_btn = ttk.Button(button_bg, text="Delete selected row", width=23, command=delete)
+del_btn.place(x=250,y=100)
+delete_all = ttk.Button(button_bg, text="Delete all", width=23, command=delete_all)
+delete_all.place(x=50,y=100)
 
 
 # Create buttons to add to table
 
 # submit button
-append_button = tk.Button(text="Append Details & Print",font=("Arial",12,"bold"), command=add_data)
+append_button = tk.Button(button_bg, text="Append Details & Print",font=("Arial",12,"bold"), command=add_data)
 append_button.pack(padx=10,pady=300)
-append_button.place(x=515,y=480)
+append_button.place(x=130,y=10)
 
 
 #btn_print = tk.Button(window,text="Print Details",font=("Arial",12,"bold"), command=add_data)
@@ -123,16 +128,16 @@ btn_exit.place(x=1360,y=760)
 
 # Labels
 lb_header = tk.Label(window,text= "Julie's Party",font=('Arial',45,"bold"), width= 23,fg="red",bg="lightgrey")
-lb_name = tk.Label(window,text= "Customer Name",font=('Arial',14),fg="black",bg="lightgrey")
-lb_receipt = tk.Label(window,text= "Receipt Number",font=('Arial',14),fg="black",bg="lightgrey")
-lb_item = tk.Label(window,text= "Item Hired",font=('Arial',14),fg="black",bg="lightgrey")
-lb_num = tk.Label(window,text= "How many items hired",font=('Arial',14),fg="black",bg="lightgrey")
+lb_name = tk.Label(label_bg,text= "Customer Name",font=('Arial',14),fg="black",bg="lightgrey")
+lb_receipt = tk.Label(label_bg,text= "Receipt Number",font=('Arial',14),fg="black",bg="lightgrey")
+lb_item = tk.Label(label_bg,text= "Item Hired",font=('Arial',14),fg="black",bg="lightgrey")
+lb_num = tk.Label(label_bg,text= "Quantity of items",font=('Arial',14),fg="black",bg="lightgrey")
 # Label positions
 lb_header.place(x=0,y=0)
-lb_name.place(x=240,y=200)
-lb_receipt.place(x=240,y=250)
-lb_item.place(x=240,y=300)
-lb_num.place(x=225,y=350)
+lb_name.place(x=35,y=9)
+lb_receipt.place(x=35,y=50)
+lb_item.place(x=35,y=100)
+lb_num.place(x=35,y=155)
 
 
 # Create entry boxes
