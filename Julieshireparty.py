@@ -28,6 +28,7 @@ entry_frame.pack(pady=10)
 row_count_label = tk.Label(window, text="Number of Rows: 0", font=("Arial", 12))
 row_count_label.place(x=700, y=165)
 
+# Function to update the label that shows the number of rows
 def update_row_count():
     row_count = len(treeview.get_children())
     row_count_label.config(text="Number of Rows: {}".format(row_count))
@@ -42,10 +43,10 @@ label_bg.place(x=90,y=190)
 button_bg = tk.Label(window, width=84, height=10, bg="#98d9a9")
 button_bg.place(x=90,y=465)
 
-# Add images
-
+# Add images using PIL
 main_image = Image.open("C:\\Users\\roger\\Downloads\\concert-2527495_1280.jpg")
 photo = ImageTk.PhotoImage(main_image)
+# Changing the image size and position
 img_label = Label(window, image=photo, height=72, width=1000)
 img_label.place(x=600,y=0)
 
@@ -56,6 +57,7 @@ for col in columns:
 
 #create function to add data to the table
 def add_data():
+    # Making error message if user doesn't enter an integer
     try:
         Receipt = int(receipt_num.get())
     except ValueError:
@@ -65,11 +67,12 @@ def add_data():
     Item_Hired = item_hired.get()
     Number_Hired = num_hired.get()
     
-    # Validation checks
+    # Validation checking
     if not Name.strip():
         customer_name_error.config(text="Name Required")
         return # Exit the function if Name is empty
 
+# use the strip() method to remove any leading and trailing whitespace. Then, it checks if the resulting string is empty using not Item_Hired.strip()
     if not Item_Hired.strip():
         item_hired_error.config(text="Item Hired cannot be empty")
         return  # Exit the function if Item_Hired is empty
@@ -82,7 +85,7 @@ def add_data():
     item_hired_error.config(text="")
     num_error.config(text="")
     customer_name_error.config(text="")
-    # Print to terminal
+    # Print data to python terminal 
     print("Name: ", Name)
     print("Item hired: ", Item_Hired)
     print("Number of items hired: ", Number_Hired)
@@ -92,16 +95,17 @@ def add_data():
     treeview.insert("", "end", values=(Name, Receipt, Item_Hired, Number_Hired))
     update_row_count()
 
-customer_name_error = Label(entry_box_bg, bg="#98d9a9")
+# Labels for the error messages
+customer_name_error = Label(entry_box_bg, bg="yellow")
 customer_name_error.place(x=50,y=35)
 
-receipt_error = Label(entry_box_bg, bg="#98d9a9")
+receipt_error = Label(entry_box_bg, bg="yellow")
 receipt_error.place(x=50,y=85)
 
-item_hired_error = Label(entry_box_bg, bg="#98d9a9")
+item_hired_error = Label(entry_box_bg, bg="yellow")
 item_hired_error.place(x=50,y=135)
 
-num_error = Label(entry_box_bg, bg="#98d9a9")
+num_error = Label(entry_box_bg, bg="yellow")
 num_error.place(x=50,y=185)
 
 
@@ -119,7 +123,7 @@ def delete_all():
         treeview.delete(add_data)
         update_row_count()
 
-# function to save data to a file
+# function to save data to a file using JSON
 def save_data():
     data = []
     for item in treeview.get_children():
@@ -138,7 +142,7 @@ window.protocol("WM_DELETE_WINDOW", save_data)
 save = tk.Button(window,text="SAVE",font=("Arial",15),command=save_data)
 save.place(x=950,y=780)
 
-# Function to load data from file
+# Function to load data from file using JSON
 def load_data():
     try:
         with open("data.json", "r") as file:
@@ -149,7 +153,7 @@ def load_data():
     except FileNotFoundError:
         pass
 
-# Call load_data to populate the treeview
+# Using load_data function to load previous saved data into the treeview
 load_data()
 load = tk.Button(window,text="LOAD",font=("Arial",15),command=load_data)
 load.place(x=1100,y=780)
