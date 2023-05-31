@@ -39,6 +39,11 @@ entry_frame.pack(pady=10)
 for col in columns:
     treeview.heading(col, text=col)
 
+def validate_entry(text):
+    if text.strip():  # Check if the input is not empty after removing leading/trailing whitespace
+        return True
+    else:
+        return False
 
 #create function to add data to the table
 def add_data():
@@ -46,15 +51,30 @@ def add_data():
     try:
         Receipt = int(receipt_num.get())
     except ValueError:
-        error.config(text="Please enter a number")
-
+        receipt_error.config(text="Please enter a number")
 
     Item_Hired = item_hired.get()
     Number_Hired = num_hired.get()
-    treeview.insert("", "end", values=(Name, Receipt, Item_Hired, Number_Hired))
+    
+    # Print to terminal
+    print("Name: ", Name)
+    print("Item hired: ", Item_Hired)
+    print("Number of items hired: ", Number_Hired)
+    print("Receipt: ", Receipt)
+    print("*************")
 
-error = Label(window, text='', bg="yellow")
-error.place(x=450,y=270)
+    treeview.insert("", "end", values=(Name, Receipt, Item_Hired, Number_Hired))
+    
+    if validate_entry(item_hired.get()):
+        print("")
+    else:
+        item_hired_error.config(text="Entry Required")
+
+item_hired_error = Label(window, text='', bg="yellow")
+item_hired_error.place(x=450,y=320)
+
+receipt_error = Label(window, text='', bg="yellow")
+receipt_error.place(x=450,y=270)
 
 # Functions and buttons to delete data off of the table
 
@@ -74,7 +94,6 @@ def delete_all():
         treeview.delete(add_data)
 
 
-
 # Add Buttons to Edit and Delete the Treeview items
 #edit_btn = ttk.Button(window, text="Edit", width=23, command=edit)
 #edit_btn.place(x=1000,y=440)
@@ -87,12 +106,13 @@ delete_all.place(x=1100,y=760)
 # Create buttons to add to table
 
 # submit button
-add_button = tk.Button(text="Print Details",font=("Arial",12,"bold"), command=add_data)
-add_button.pack(padx=10,pady=300)
-add_button.place(x=535,y=480)
+append_button = tk.Button(text="Append Details & Print",font=("Arial",12,"bold"), command=add_data)
+append_button.pack(padx=10,pady=300)
+append_button.place(x=515,y=480)
 
-btn_append = tk.Button(window,text="Append Details",font=("Arial",12,"bold"))
-btn_append.place(x=400,y=480)
+
+#btn_print = tk.Button(window,text="Print Details",font=("Arial",12,"bold"), command=add_data)
+#btn_print.place(x=400,y=480)
 
 # Button to exit application
 btn_exit = tk.Button(window,text="Exit application",font=("Arial",13),command=exit)
