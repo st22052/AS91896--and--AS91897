@@ -14,16 +14,17 @@ table_frame = tk.Frame()
 table_frame.pack(pady=10)
 table_frame.place(x=700,y=190)
 
-# Adding a scroll bar for table in case user adds more data
-table_scroll = Scrollbar(table_frame)
-table_scroll.pack(side=RIGHT, fill=Y)
-
 columns = ("Customer Name", "Receipt Number", "Item Hired", "Number Hired")
-treeview = ttk.Treeview(table_frame, columns=columns, show="headings", height=25, yscrollcommand=table_scroll.set)
-treeview.pack(pady=10)
+treeview = ttk.Treeview(table_frame, columns=columns, show="headings", height=25)
+treeview.pack(side="left", fill="y")
 
 entry_frame = ttk.Frame()
 entry_frame.pack(pady=10)
+
+# Adding a scroll bar for table in case user adds more data
+table_scroll = Scrollbar(table_frame,  orient="vertical", command=treeview.yview)
+table_scroll.pack(side="left", fill="y")
+treeview.configure(yscrollcommand=table_scroll.set)
 
 row_count_label = tk.Label(window, text="Number of Rows: 0", font=("Arial", 12))
 row_count_label.place(x=700, y=165)
