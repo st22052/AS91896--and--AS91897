@@ -1,11 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import *
+from PIL import ImageTk, Image
 # Create custom window
 window = tk.Tk()
 window.title("Julie's hire party")
 window.geometry("1100x600") 
-window.configure(bg="white")
+window.configure(bg="#F5D1C8")
 window.attributes('-fullscreen',True)
 
 # Create custom table
@@ -24,18 +25,29 @@ treeview.pack(pady=10)
 entry_frame = ttk.Frame()
 entry_frame.pack(pady=10)
 
+row_count_label = tk.Label(window, text="Number of Rows: 0", font=("Arial", 12))
+row_count_label.place(x=700, y=165)
+
+def update_row_count():
+    row_count = len(treeview.get_children())
+    row_count_label.config(text="Number of Rows: {}".format(row_count))
 
 # Add shapes
-entry_box_bg = tk.Label(window, width=40, height=17,fg="red",bg="#213A5C")
+entry_box_bg = tk.Label(window, width=40, height=17,fg="red",bg="#98d9a9")
 entry_box_bg.place(x=393,y=190)
 
-label_bg = tk.Label(window, width=40, height=17,fg="red",bg="#213A5C")
+label_bg = tk.Label(window, width=40, height=17,fg="red",bg="#98d9a9")
 label_bg.place(x=90,y=190)
 
-button_bg = tk.Label(window, width=84, height=10, bg="#213A5C")
+button_bg = tk.Label(window, width=84, height=10, bg="#98d9a9")
 button_bg.place(x=90,y=465)
 
+# Add images
 
+main_image = Image.open("C:\\Users\\roger\\Downloads\\concert-2527495_1280.jpg")
+photo = ImageTk.PhotoImage(main_image)
+img_label = Label(window, image=photo, height=72, width=1000)
+img_label.place(x=600,y=0)
 
 #Headings for table
 for col in columns:
@@ -78,18 +90,18 @@ def add_data():
     print("*************")
 
     treeview.insert("", "end", values=(Name, Receipt, Item_Hired, Number_Hired))
+    update_row_count()
 
-
-customer_name_error = Label(entry_box_bg, bg="yellow")
+customer_name_error = Label(entry_box_bg, bg="#98d9a9")
 customer_name_error.place(x=50,y=35)
 
-receipt_error = Label(entry_box_bg, bg="yellow")
+receipt_error = Label(entry_box_bg, bg="#98d9a9")
 receipt_error.place(x=50,y=85)
 
-item_hired_error = Label(entry_box_bg, bg="yellow")
+item_hired_error = Label(entry_box_bg, bg="#98d9a9")
 item_hired_error.place(x=50,y=135)
 
-num_error = Label(entry_box_bg, bg="yellow")
+num_error = Label(entry_box_bg, bg="#98d9a9")
 num_error.place(x=50,y=185)
 
 
@@ -105,11 +117,13 @@ def delete():
    # Get selected item to Delete
    selected_item = treeview.selection()[0]
    treeview.delete(selected_item)
-
+   update_row_count()
+   
 # Function that deletes all rows of data
 def delete_all():
     for add_data in treeview.get_children():
         treeview.delete(add_data)
+        update_row_count()
 
 
 # Add Buttons to Edit and Delete the Treeview items
@@ -133,14 +147,14 @@ append_button.place(x=200,y=20)
 #btn_print.place(x=400,y=480)
 
 # Button to exit application
-btn_exit = tk.Button(window,text="Exit application",font=("Arial",13),command=exit)
-btn_exit.place(x=1360,y=760)
+btn_exit = tk.Button(window,text="Exit application",font=("Arial",15),command=exit)
+btn_exit.place(x=1370,y=780)
 
 
 
 
 # Labels
-lb_header = tk.Label(window,text= "Julie's Party",font=('Arial',45,"bold"), width= 20,fg="red",bg="lightgrey")
+lb_header = tk.Label(window,text= "Julie's Party",font=('Arial',45,"bold"), width= 20,fg="black",bg="red")
 lb_name = tk.Label(label_bg,text= "Customer Name",font=('Arial',14),fg="black",bg="lightgrey")
 lb_receipt = tk.Label(label_bg,text= "Receipt Number",font=('Arial',14),fg="black",bg="lightgrey")
 lb_item = tk.Label(label_bg,text= "Item Hired",font=('Arial',14),fg="black",bg="lightgrey")
