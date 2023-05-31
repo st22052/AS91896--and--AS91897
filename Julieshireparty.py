@@ -6,7 +6,6 @@ import json
 # Create custom window
 window = tk.Tk()
 window.title("Julie's hire party")
-window.geometry("1100x600") 
 window.configure(bg="#F5D1C8")
 window.attributes('-fullscreen',True)
 
@@ -108,12 +107,6 @@ num_error.place(x=50,y=185)
 
 
 # Functions and buttons to delete data off of the table
-
-#def edit():
-   # Get selected item to Edit
-   #selected_item = treeview.selection()[0]
-   #treeview.item(selected_item, text="blub", values=(add_data))
-
 def delete():
    # Get selected item to Delete
    selected_item = treeview.selection()[0]
@@ -163,8 +156,6 @@ load.place(x=1100,y=780)
 
 
 # Add Buttons to Edit and Delete the Treeview items
-#edit_btn = ttk.Button(window, text="Edit", width=23, command=edit)
-#edit_btn.place(x=1000,y=440)
 del_btn = ttk.Button(button_bg, text="Delete selected row", width=23, command=delete)
 del_btn.place(x=350,y=100)
 delete_all = ttk.Button(button_bg, text="Delete all", width=23, command=delete_all)
@@ -172,15 +163,10 @@ delete_all.place(x=100,y=100)
 
 
 # Create buttons to add to table
-
 # submit button
 append_button = tk.Button(button_bg, text="Append Details & Print",font=("Arial",12,"bold"), command=add_data)
 append_button.pack(padx=10,pady=300)
 append_button.place(x=200,y=20)
-
-
-#btn_print = tk.Button(window,text="Print Details",font=("Arial",12,"bold"), command=add_data)
-#btn_print.place(x=400,y=480)
 
 # Button to exit application
 btn_exit = tk.Button(window,text="Exit application",font=("Arial",15),command=exit)
@@ -215,8 +201,6 @@ receipt_num.place(x=450,y=250)
 item_hired.place(x=450,y=300)
 num_hired.place(x=450,y=350)
 del_row.place
-
-
 
 
 
