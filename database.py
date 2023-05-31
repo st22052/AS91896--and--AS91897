@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import json
 
+"""""
 # Function to save data to a JSON file
 def save_data():
     data = []
@@ -87,3 +88,4 @@ add_button = tk.Button(window, text="Add Data", command=add_data)
 add_button.pack(pady=10)
 
 window.mainloop()
+"""""

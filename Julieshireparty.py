@@ -149,7 +149,7 @@ def load_data():
         with open("data.json", "r") as file:
             data = json.load(file)
             for item in data:
-                treeview.insert("", "end", values=(item["Name"], item["Receipt"], item["Item Hired"], item["Number Hired"]))
+                treeview.insert("", "end", values=("Name", "Receipt", "Item_Hired", "Number_Hired"))
             update_row_count()
     except FileNotFoundError:
         pass
